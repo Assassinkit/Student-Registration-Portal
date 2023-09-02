@@ -1,0 +1,13 @@
+<h2>Admin Sign In</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Username" [(ngModel)]="username">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Password" type="password" [(ngModel)]="password">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button color="warn" (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onSignInClick()">Sign In</button>
+</mat-dialog-actions>

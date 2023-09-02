@@ -1,0 +1,171 @@
+<div class="registration-container">
+  <!-- Left Side Animation -->
+  <div class="left-section">
+    <div>
+      <script src="https://unpkg.com/@lottiefiles/lottie-player@1.7.1/dist/lottie-player.js"></script>
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        src="https://lottie.host/68537c2c-2fc4-44d5-98bc-60957921c91b/oKaqtcIpkf.json"
+        style="width: 700px"
+      >
+      </lottie-player>
+    </div>
+  </div>
+
+  <!-- Student Regidtration Form Card -->
+  <div class="right-section">
+    <mat-card>
+
+      <!-- Card Material -->
+      <mat-card-content>
+        <!-- Form Creation -->
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+          <!-- Profile Image -->
+          <div class="profile-image-container">
+            <img [src]="imageUrl" style="width:250px; height: 250px;">
+            <input type="file" #Image accept="image/*" (change)="handleFileInput($event)" name="profileImage"
+            style="margin-top: 18rem; margin-left: -13rem;" />
+          </div>
+
+          <!-- Card Title -->
+          <mat-card-header class="mat-primary">
+            <mat-card-title class="centered-title">Student Registration</mat-card-title>
+          </mat-card-header>
+
+          <!-- First Name -->
+          <mat-form-field class="full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required />
+          </mat-form-field>
+
+          <!-- Last Name -->
+          <mat-form-field class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required />
+          </mat-form-field>
+
+          <!-- Date Of Birth -->
+          <mat-form-field class="full-width">
+            <mat-label>Date of Birth</mat-label>
+            <input
+              matInput
+              [matDatepicker]="dobPicker"
+              formControlName="dob"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dobPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+          </mat-form-field>
+
+          <!-- Email Id -->
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required />
+            <mat-error
+              *ngIf="registrationForm.get('email')?.hasError('required')"
+              >Email is required</mat-error
+            >
+            <mat-error *ngIf="registrationForm.get('email')?.hasError('email')"
+              >Invalid email format</mat-error
+            >
+          </mat-form-field>
+
+          <!-- Gender-->
+          <mat-form-field class="form-field col-md-4 col-sm-5 col-lg-5 col-xl-4">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender" required >
+              <mat-option *ngFor="let Gender of Genders" value="{{Gender}}">{{Gender}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Password -->
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              required
+            />
+            <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">Password is required</mat-error>
+            <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">Password should be at least 6 characters</mat-error>
+            <mat-error *ngIf="registrationForm.get('password')?.hasError('maxlength')">Password should not exceed 8 characters</mat-error>
+          </mat-form-field>
+
+          <!-- Confirm Password -->
+          <mat-form-field class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="confirmPassword"
+              required
+            />
+            <mat-error *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</mat-error>
+            <mat-error *ngIf="registrationForm.hasError('passwordMismatch')"
+              >Passwords do not match</mat-error>
+          </mat-form-field>
+
+          <!-- Phone Number -->
+          <mat-form-field class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" required />
+            <mat-hint align="end">{{ registrationForm.get('phoneNumber')?.value ? (registrationForm.get('phoneNumber')?.value.toString().length + '/10') : '0/10' }}</mat-hint>
+            <mat-error *ngIf="registrationForm.get('phoneNumber')?.hasError('pattern')">Only Numbers < 10.</mat-error>
+          </mat-form-field>
+
+          <!-- State -->
+          <mat-form-field class="full-width">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state" required>
+              <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- City -->
+          <mat-form-field class="full-width">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city" required>
+              <mat-option *ngFor="let city of cities[registrationForm.get('state')?.value ?? '']" [value]="city">
+                {{ city }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Pincode -->
+          <mat-form-field class="full-width">
+            <mat-label>Pincode</mat-label>
+            <input matInput formControlName="pincode" required />
+          </mat-form-field>
+
+          <p style="margin-left: 22rem" *ngIf="registrationForm.invalid">Complete the form to Register.</p>
+
+          <!-- Register Button -->
+          <button type="submit" mat-raised-button color="primary" style="margin-left: 25rem" [disabled]="!registrationForm.valid">
+            Register
+          </button>
+
+        </form>
+
+      </mat-card-content>
+
+      <!-- Admin Access Section -->
+      <div class="admin-access-section">
+        <p>Only Admin has the access to Edit/Delete the entries made by Students. To access it,
+          <a href="javascript:void(0)" (click)="navigateToAdminSignIn()">Click Here</a>.
+        </p>
+      </div>
+
+    </mat-card>
+
+  </div>
+
+
+
+</div>

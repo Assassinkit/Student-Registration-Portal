@@ -1,0 +1,26 @@
+.heading {
+  font-size: 40px;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+}
+
+mat-form-field {
+  margin-left: 30px;
+}
+
+.mat-elevation-z8 {
+  min-width: 90%;
+  margin-left: 98px;
+  border: bisque;
+  background: cornsilk;
+}
+
